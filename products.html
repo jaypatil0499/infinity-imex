@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Products — Infinity Imex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF7F2;
+    --cream2: #F3EDE3;
+    --dark: #1C0A04;
+    --dark2: #2D1208;
+    --gold: #B8892A;
+    --gold-light: #D4AA55;
+    --text: #2A1508;
+    --muted: #8B6E5A;
+    --white: #FFFFFF;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--cream); color: var(--text); overflow-x: hidden; line-height: 1.7; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 60px; display: flex; align-items: center; justify-content: space-between;
+    height: 80px; background: rgba(28,10,4,0.97);
+    box-shadow: 0 1px 0 rgba(184,137,42,0.2);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo-text { font-family: var(--serif); font-size: 18px; color: var(--cream); letter-spacing: .5px; }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; color: rgba(255,255,255,0.75); transition: color .3s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+  .nav-cta {
+    font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; text-decoration: none; border: 1px solid var(--gold);
+    color: var(--gold); padding: 10px 24px; transition: all .3s;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--dark); }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    padding-top: 80px; background: var(--dark2); min-height: 320px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px);
+  }
+  .page-hero-inner { position: relative; z-index: 2; padding: 60px 40px; }
+  .page-hero-label { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .page-hero-title { font-family: var(--serif); font-size: clamp(40px, 5vw, 72px); color: var(--cream); font-weight: 400; line-height: 1.1; }
+  .page-hero-title em { font-style: italic; color: var(--gold-light); }
+  .page-hero-sub { font-size: 15px; color: rgba(250,247,242,0.55); margin-top: 16px; letter-spacing: 1px; font-weight: 300; }
+  .hero-divider { width: 48px; height: 1px; background: var(--gold); margin: 24px auto 0; }
+
+  /* ── CATEGORY NAV ── */
+  .cat-nav {
+    background: var(--white); border-bottom: 1px solid var(--cream2);
+    padding: 0 60px; position: sticky; top: 80px; z-index: 90;
+    display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+  }
+  .cat-nav::-webkit-scrollbar { display: none; }
+  .cat-nav a {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500;
+    color: var(--muted); text-decoration: none; padding: 18px 20px;
+    white-space: nowrap; border-bottom: 2px solid transparent; transition: all .3s;
+    flex-shrink: 0;
+  }
+  .cat-nav a:hover { color: var(--text); border-color: var(--gold); }
+
+  /* ── CATEGORY SECTION ── */
+  .cat-section { padding: 100px 60px; border-bottom: 1px solid var(--cream2); }
+  .cat-section:nth-child(even) { background: var(--cream2); }
+  .cat-section:nth-child(odd) { background: var(--cream); }
+
+  .cat-header { max-width: 1300px; margin: 0 auto 60px; display: grid; grid-template-columns: 1fr 1.8fr; gap: 60px; align-items: start; }
+  .cat-num { font-family: var(--serif); font-size: 100px; color: rgba(184,137,42,0.1); line-height: 1; user-select: none; margin-bottom: -20px; }
+  .cat-label { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .cat-title { font-family: var(--serif); font-size: clamp(28px, 3.5vw, 44px); color: var(--text); font-weight: 400; line-height: 1.15; margin-bottom: 20px; }
+  .cat-divider { width: 40px; height: 1px; background: var(--gold); margin-bottom: 20px; }
+  .cat-desc { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.9; }
+  .cat-desc strong { color: var(--text); font-weight: 500; }
+  .cat-badge {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 24px;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    border: 1px solid rgba(184,137,42,0.4); color: var(--gold); padding: 8px 18px;
+  }
+  .cat-badge svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+
+  /* ── PRODUCT GRID ── */
+  .product-grid { max-width: 1300px; margin: 0 auto; display: grid; gap: 3px; }
+  .product-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .product-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .product-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .product-grid.cols-1 { grid-template-columns: 1fr; max-width: 600px; }
+
+  .product-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    background: var(--cream2); aspect-ratio: 3/4;
+  }
+  .product-card.wide { aspect-ratio: 4/3; }
+  .product-card.square { aspect-ratio: 1; }
+  .product-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .7s ease;
+    display: block;
+  }
+  .product-card:hover img { transform: scale(1.06); }
+  .product-card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(28,10,4,0.75) 0%, transparent 50%);
+    opacity: 0; transition: opacity .3s;
+    display: flex; align-items: flex-end; padding: 20px;
+  }
+  .product-card:hover .product-card-overlay { opacity: 1; }
+  .product-card-label { font-size: 12px; color: rgba(250,247,242,0.85); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ── ENQUIRE CTA ── */
+  .cat-cta { max-width: 1300px; margin: 48px auto 0; display: flex; align-items: center; gap: 24px; }
+  .btn-enquire {
+    font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; text-decoration: none; background: var(--gold); color: var(--dark);
+    padding: 14px 36px; transition: background .3s; display: inline-block;
+  }
+  .btn-enquire:hover { background: var(--gold-light); }
+  .btn-outline-sm {
+    font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 2px;
+    text-transform: uppercase; text-decoration: none;
+    border: 1px solid rgba(107,61,40,0.3); color: var(--muted);
+    padding: 14px 36px; transition: all .3s; display: inline-block;
+  }
+  .btn-outline-sm:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0e0502; padding: 48px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(184,137,42,0.15); flex-wrap: wrap; gap: 24px;
+  }
+  .footer-copy { font-size: 12px; color: rgba(250,247,242,0.3); letter-spacing: 1px; }
+  .footer-links { display: flex; gap: 32px; }
+  .footer-links a { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; color: rgba(250,247,242,0.35); transition: color .3s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── REVEAL ANIMATIONS ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .stagger > * { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+  .stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0s; }
+  .stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:.08s; }
+  .stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:.16s; }
+  .stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:.24s; }
+  .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:.32s; }
+  .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:.40s; }
+  .stagger.visible > *:nth-child(7) { opacity:1; transform:none; transition-delay:.48s; }
+  .stagger.visible > *:nth-child(8) { opacity:1; transform:none; transition-delay:.56s; }
+  .stagger.visible > *:nth-child(9) { opacity:1; transform:none; transition-delay:.64s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .cat-nav { padding: 0 16px; }
+    .cat-section { padding: 60px 24px; }
+    .cat-header { grid-template-columns: 1fr; gap: 24px; }
+    .cat-num { font-size: 60px; }
+    .product-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+    .product-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+    footer { padding: 32px 24px; }
+    .cat-cta { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo.png" alt="Infinity Imex" style="height:44px;width:auto;">
+    <span class="nav-logo-text">Infinity Imex</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="products.html" class="active">Products</a></li>
+    <li><a href="index.html#why-us">Why Us</a></li>
+    <li><a href="index.html#gifting">Gifting</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Get in Touch</a>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-hero-label">Premium Leather Goods</p>
+    <h1 class="page-hero-title">Our <em>Collection</em></h1>
+    <p class="page-hero-sub">Handcrafted from the finest leather — sourced locally, delivered globally</p>
+    <div class="hero-divider"></div>
+  </div>
+</div>
+
+<!-- CATEGORY NAV -->
+<nav class="cat-nav">
+  <a href="#backpacks">Backpacks</a>
+  <a href="#carry-bags">Tote & Carry Bags</a>
+  <a href="#work-bags">Ladies Work Bags</a>
+  <a href="#briefcases">Briefcases</a>
+  <a href="#wallets">Wallets</a>
+  <a href="#document-folders">Document Folders</a>
+  <a href="#keyrings">Key Rings</a>
+  <a href="#purses">Hand-Held Purses</a>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════
+     1. LEATHER BACKPACKS
+══════════════════════════════════════════════════ -->
+<section class="cat-section" id="backpacks">
+  <div class="cat-header reveal">
+    <div>
+      <div class="cat-num">01</div>
+    </div>
+    <div>
+      <p class="cat-label">Bags & Carry Solutions</p>
+      <h2 class="cat-title">Luxury Leather<br>Backpacks</h2>
+      <div class="cat-divider"></div>
+      <p class="cat-desc">
+        Designed for those who demand both <strong>performance and presence</strong>, our luxury leather backpacks combine refined aesthetics with intelligent functionality. Handcrafted from <strong>premium full-grain leather</strong>, each piece is built to age beautifully while maintaining its structure and character.
+        <br><br>
+        Thoughtfully designed compartments keep your laptop, documents, and essentials organised — the perfect companion for commuting, business travel, and everyday use. A seamless blend of <strong>craftsmanship and convenience</strong> that reflects confidence, ambition, and timeless style.
+      </p>
+      <span class="cat-badge">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Customisation & Private Label Available
+      </span>
+    </div>
+  </div>
+  <div class="product-grid cols-4 stagger">
+    <div class="product-card"><img src="images/products/backpacks/1.jpg" alt="Leather Backpack" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Backpack</span></div></div>
+    <div class="product-card"><img src="images/products/backpacks/2.jpg" alt="Leather Backpack" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Backpack</span></div></div>
+    <div class="product-card"><img src="images/products/backpacks/3.jpg" alt="Leather Backpack" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Backpack</span></div></div>
+    <div class="product-card"><img src="images/products/backpacks/4.jpg" alt="Leather Backpack" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Backpack</span></div></div>
+    <div class="product-card"><img src="images/products/backpacks/5.jpg" alt="Leather Backpack" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Backpack</span></div></div>
+    <div class="product-card"><img src="images/products/backpacks/6.jpg" alt="Leather Backpack" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Backpack</span></div></div>
+    <div class="product-card"><img src="images/products/backpacks/7.jpg" alt="Leather Backpack" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Backpack</span></div></div>
+    <div class="product-card"><img src="images/products/backpacks/8.jpg" alt="Leather Backpack" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Backpack</span></div></div>
+    <div class="product-card"><img src="images/products/backpacks/9.jpg" alt="Leather Backpack" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Backpack</span></div></div>
+  </div>
+  <div class="cat-cta">
+    <a href="index.html#contact" class="btn-enquire">Enquire Now</a>
+    <a href="index.html#contact" class="btn-outline-sm">Request Bulk Pricing</a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     2. LEATHER TOTE / CARRY BAGS
+══════════════════════════════════════════════════ -->
+<section class="cat-section" id="carry-bags">
+  <div class="cat-header reveal">
+    <div>
+      <div class="cat-num">02</div>
+    </div>
+    <div>
+      <p class="cat-label">Bags & Carry Solutions</p>
+      <h2 class="cat-title">Premium Leather<br>Tote & Carry Bags</h2>
+      <div class="cat-divider"></div>
+      <p class="cat-desc">
+        Effortlessly sophisticated and endlessly practical, our leather tote bags are designed for those who appreciate <strong>understated luxury</strong>. Crafted from high-quality leather with meticulous attention to detail, these totes offer generous space without compromising on style.
+        <br><br>
+        Clean silhouettes, durable construction, and refined finishes make them ideal for <strong>work, travel, and daily essentials</strong>. Whether heading to the office or a weekend escape, our luxury leather tote bags deliver versatility with a polished edge — designed to elevate every moment.
+      </p>
+      <span class="cat-badge">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Customisation & Private Label Available
+      </span>
+    </div>
+  </div>
+  <div class="product-grid cols-4 stagger">
+    <div class="product-card"><img src="images/products/carry-bags/1.jpg" alt="Leather Carry Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Sling Carry Bag</span></div></div>
+    <div class="product-card"><img src="images/products/carry-bags/2.jpg" alt="Leather Carry Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Sling Carry Bag</span></div></div>
+    <div class="product-card"><img src="images/products/carry-bags/3.jpg" alt="Leather Carry Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Sling Carry Bag</span></div></div>
+    <div class="product-card"><img src="images/products/carry-bags/4.jpg" alt="Leather Carry Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Sling Carry Bag</span></div></div>
+    <div class="product-card"><img src="images/products/carry-bags/5.jpg" alt="Leather Carry Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Sling Carry Bag</span></div></div>
+    <div class="product-card"><img src="images/products/carry-bags/6.jpg" alt="Leather Carry Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Sling Carry Bag</span></div></div>
+    <div class="product-card"><img src="images/products/carry-bags/7.jpg" alt="Leather Carry Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Sling Carry Bag</span></div></div>
+    <div class="product-card"><img src="images/products/carry-bags/8.jpg" alt="Leather Carry Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Sling Carry Bag</span></div></div>
+    <div class="product-card"><img src="images/products/carry-bags/9.jpg" alt="Leather Waist Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Waist Bag</span></div></div>
+  </div>
+  <div class="cat-cta">
+    <a href="index.html#contact" class="btn-enquire">Enquire Now</a>
+    <a href="index.html#contact" class="btn-outline-sm">Request Bulk Pricing</a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     3. LEATHER LADIES WORK BAGS
+══════════════════════════════════════════════════ -->
+<section class="cat-section" id="work-bags">
+  <div class="cat-header reveal">
+    <div>
+      <div class="cat-num">03</div>
+    </div>
+    <div>
+      <p class="cat-label">Bags & Carry Solutions</p>
+      <h2 class="cat-title">Luxury Leather<br>Ladies Work Bags</h2>
+      <div class="cat-divider"></div>
+      <p class="cat-desc">
+        Designed to complement ambition, our leather work bags for women bring together <strong>elegance, structure, and functionality</strong>. Handcrafted from premium leather, each bag is tailored to carry laptops, documents, and daily essentials with ease — while maintaining a sleek, professional silhouette.
+        <br><br>
+        Perfect for <strong>boardrooms, client meetings, and business travel</strong>, these premium leather office bags for women are more than accessories — they are a reflection of confidence, success, and refined taste.
+      </p>
+      <span class="cat-badge">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Customisation & Private Label Available
+      </span>
+    </div>
+  </div>
+  <div class="product-grid cols-4 stagger">
+    <div class="product-card"><img src="images/products/work-bags/1.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/2.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/3.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/4.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/5.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/6.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/7.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/8.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/9.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/10.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/11.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/12.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/13.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/14.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/15.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/16.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+    <div class="product-card"><img src="images/products/work-bags/17.jpg" alt="Ladies Work Bag" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Ladies Work Bag</span></div></div>
+  </div>
+  <div class="cat-cta">
+    <a href="index.html#contact" class="btn-enquire">Enquire Now</a>
+    <a href="index.html#contact" class="btn-outline-sm">Request Bulk Pricing</a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     4. LEATHER BRIEFCASES
+══════════════════════════════════════════════════ -->
+<section class="cat-section" id="briefcases">
+  <div class="cat-header reveal">
+    <div>
+      <div class="cat-num">04</div>
+    </div>
+    <div>
+      <p class="cat-label">Bags & Carry Solutions</p>
+      <h2 class="cat-title">Premium Leather<br>Briefcases</h2>
+      <div class="cat-divider"></div>
+      <p class="cat-desc">
+        A modern expression of a timeless classic, our leather briefcases are designed for professionals who value <strong>craftsmanship and distinction</strong>. Made from the finest quality leather, each briefcase features structured interiors, secure compartments, and impeccable detailing to support your daily business needs.
+        <br><br>
+        Ideal for <strong>executives, entrepreneurs, and consultants</strong>, these luxury leather briefcases offer durability, sophistication, and a commanding presence — ensuring you make the right impression, every time.
+      </p>
+      <span class="cat-badge">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Customisation & Private Label Available
+      </span>
+    </div>
+  </div>
+  <div class="product-grid cols-3 stagger">
+    <div class="product-card wide"><img src="images/products/briefcases/1.jpg" alt="Leather Briefcase" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Briefcase</span></div></div>
+    <div class="product-card wide"><img src="images/products/briefcases/2.jpg" alt="Leather Briefcase" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Briefcase</span></div></div>
+    <div class="product-card wide"><img src="images/products/briefcases/3.jpg" alt="Leather Briefcase" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Work Bag</span></div></div>
+    <div class="product-card wide"><img src="images/products/briefcases/4.jpg" alt="Leather Briefcase" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Work Bag</span></div></div>
+    <div class="product-card wide"><img src="images/products/briefcases/5.jpg" alt="Leather Briefcase" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Work Bag</span></div></div>
+    <div class="product-card wide"><img src="images/products/briefcases/6.jpg" alt="Leather Briefcase" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Work Bag</span></div></div>
+  </div>
+  <div class="cat-cta">
+    <a href="index.html#contact" class="btn-enquire">Enquire Now</a>
+    <a href="index.html#contact" class="btn-outline-sm">Request Bulk Pricing</a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     5. LEATHER WALLETS
+══════════════════════════════════════════════════ -->
+<section class="cat-section" id="wallets">
+  <div class="cat-header reveal">
+    <div>
+      <div class="cat-num">05</div>
+    </div>
+    <div>
+      <p class="cat-label">Leather Accessories</p>
+      <h2 class="cat-title">Luxury Leather<br>Wallets</h2>
+      <div class="cat-divider"></div>
+      <p class="cat-desc">
+        A true essential, elevated. Our luxury leather wallets are handcrafted from <strong>premium full-grain leather</strong>, offering a perfect balance of elegance, durability, and practicality. Designed with precision, each wallet features streamlined compartments for cards, cash, and essentials — ensuring effortless organisation without bulk.
+        <br><br>
+        Crafted to <strong>age beautifully over time</strong>, these premium leather wallets are more than accessories — they are a daily expression of refined taste and understated sophistication.
+      </p>
+      <span class="cat-badge">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Available in Hunter · Oil Pull-Up · Croco · Nappa
+      </span>
+    </div>
+  </div>
+  <div class="product-grid cols-3 stagger">
+    <div class="product-card wide"><img src="images/products/wallets/1.jpg" alt="Leather Wallet" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Pouch</span></div></div>
+    <div class="product-card wide"><img src="images/products/wallets/2.jpg" alt="Leather Wallet" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Gift Box</span></div></div>
+    <div class="product-card wide"><img src="images/products/wallets/3.jpg" alt="Leather Wallet" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Case</span></div></div>
+  </div>
+  <div class="cat-cta">
+    <a href="index.html#contact" class="btn-enquire">Enquire Now</a>
+    <a href="index.html#contact" class="btn-outline-sm">Request Catalogue</a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     6. DOCUMENT FOLDERS & NOTEBOOKS
+══════════════════════════════════════════════════ -->
+<section class="cat-section" id="document-folders">
+  <div class="cat-header reveal">
+    <div>
+      <div class="cat-num">06</div>
+    </div>
+    <div>
+      <p class="cat-label">Leather Accessories · Corporate Gifting</p>
+      <h2 class="cat-title">Premium Leather Document<br>Folders & Notebooks</h2>
+      <div class="cat-divider"></div>
+      <p class="cat-desc">
+        Make a lasting impression with our luxury leather document folders and notebooks — designed for professionals who value <strong>detail and distinction</strong>. Expertly crafted from high-quality leather, these pieces offer a refined way to organise documents, notes, and business essentials.
+        <br><br>
+        Ideal for <strong>executive use and corporate gifting</strong>, our premium leather portfolios and notebooks combine functionality with elegance — perfect for client gifting, leadership teams, and special occasions. Elevate your brand with gifts that reflect quality, professionalism, and timeless appeal.
+      </p>
+      <span class="cat-badge">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Ideal for Corporate Gifting & Branding
+      </span>
+    </div>
+  </div>
+  <div class="product-grid cols-2 stagger">
+    <div class="product-card wide"><img src="images/products/document-folders/1.jpg" alt="Leather Padfolio" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Padfolio</span></div></div>
+    <div class="product-card wide"><img src="images/products/document-folders/2.jpg" alt="Leather Desk Mat" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Leather Desk Mat</span></div></div>
+  </div>
+  <div class="cat-cta">
+    <a href="index.html#contact" class="btn-enquire">Enquire Now</a>
+    <a href="index.html#contact" class="btn-outline-sm">Request Corporate Quote</a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     7. LEATHER KEY RINGS
+══════════════════════════════════════════════════ -->
+<section class="cat-section" id="keyrings">
+  <div class="cat-header reveal">
+    <div>
+      <div class="cat-num">07</div>
+    </div>
+    <div>
+      <p class="cat-label">Leather Accessories</p>
+      <h2 class="cat-title">Luxury Leather<br>Key Rings</h2>
+      <div class="cat-divider"></div>
+      <p class="cat-desc">
+        Small in size, significant in detail — our leather key rings are crafted to bring a touch of <strong>everyday luxury</strong> to your essentials. Made from premium leather with durable hardware, they are designed for longevity and effortless style.
+        <br><br>
+        Perfect as <strong>personal accessories or thoughtful gifts</strong>, these premium leather keychains combine practicality with refined design — adding a subtle statement to even the simplest moments.
+      </p>
+      <span class="cat-badge">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Bespoke Engraving Available
+      </span>
+    </div>
+  </div>
+  <div class="product-grid cols-1 stagger">
+    <div class="product-card wide"><img src="images/products/keyrings/1.jpg" alt="Leather Key Rings" loading="lazy" style="object-position:center;"><div class="product-card-overlay"><span class="product-card-label">Leather Key Rings</span></div></div>
+  </div>
+  <div class="cat-cta">
+    <a href="index.html#contact" class="btn-enquire">Enquire Now</a>
+    <a href="index.html#contact" class="btn-outline-sm">Request Bulk Pricing</a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     8. HAND-HELD PURSES
+══════════════════════════════════════════════════ -->
+<section class="cat-section" id="purses">
+  <div class="cat-header reveal">
+    <div>
+      <div class="cat-num">08</div>
+    </div>
+    <div>
+      <p class="cat-label">Leather Accessories</p>
+      <h2 class="cat-title">Luxury Leather<br>Hand-Held Purses</h2>
+      <div class="cat-divider"></div>
+      <p class="cat-desc">
+        Designed for those who appreciate <strong>refined minimalism</strong>, our leather hand-held purses offer the perfect blend of style and functionality. Crafted from premium leather with elegant finishes, they are ideal for carrying your essentials with ease — whether for evenings out, quick errands, or special occasions.
+        <br><br>
+        Compact yet striking, these luxury leather purses are designed to <strong>complement your look with sophistication</strong>, making them a timeless addition to any collection.
+      </p>
+      <span class="cat-badge">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Available in Goat Kappa · Fine Milled Nappa
+      </span>
+    </div>
+  </div>
+  <div class="product-grid cols-3 stagger">
+    <div class="product-card"><img src="images/products/purses/1.jpg" alt="Hand-Held Purse" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Hand-Held Purse</span></div></div>
+    <div class="product-card"><img src="images/products/purses/2.jpg" alt="Hand-Held Purse" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Hand-Held Purse</span></div></div>
+    <div class="product-card"><img src="images/products/purses/3.jpg" alt="Hand-Held Purse" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Hand-Held Purse</span></div></div>
+    <div class="product-card"><img src="images/products/purses/4.jpg" alt="Hand-Held Purse" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Hand-Held Purse</span></div></div>
+    <div class="product-card"><img src="images/products/purses/5.jpg" alt="Hand-Held Purse" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Hand-Held Purse</span></div></div>
+    <div class="product-card"><img src="images/products/purses/6.jpg" alt="Hand-Held Purse" loading="lazy"><div class="product-card-overlay"><span class="product-card-label">Hand-Held Purse</span></div></div>
+  </div>
+  <div class="cat-cta">
+    <a href="index.html#contact" class="btn-enquire">Enquire Now</a>
+    <a href="index.html#contact" class="btn-outline-sm">Request Bulk Pricing</a>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 Infinity Imex PLC · London, UK · Source Locally, Deliver Globally</div>
+  <div class="footer-links">
+    <a href="index.html#about">About</a>
+    <a href="products.html">Products</a>
+    <a href="index.html#why-us">Why Us</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
+
+  // Category nav active state on scroll
+  const sections = document.querySelectorAll('.cat-section');
+  const catLinks = document.querySelectorAll('.cat-nav a');
+  const scrollSpy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        catLinks.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector(`.cat-nav a[href="#${e.target.id}"]`);
+        if (link) {
+          link.classList.add('active');
+          link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => scrollSpy.observe(s));
+</script>
+
+</body>
+</html>
