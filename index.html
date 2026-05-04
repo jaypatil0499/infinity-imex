@@ -1062,10 +1062,6 @@
       </div>
     </div>
     <form class="contact-form reveal-right" id="contact-form" onsubmit="handleSubmit(event)">
-      <!-- FormSubmit hidden config -->
-      <input type="hidden" name="_subject" value="New Enquiry — Infinity Imex">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
 
       <div class="form-row">
         <div class="form-group">
@@ -1164,7 +1160,7 @@
     }
   }
 
-  // Contact form — sends real email via FormSubmit (free, no account needed)
+  // Contact form — Web3Forms (free, 250/month, completely separate from E4CA)
   async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
@@ -1172,27 +1168,32 @@
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
-    const data = {};
-    new FormData(form).forEach((v, k) => { if (!k.startsWith('_')) data[k] = v; });
+    const formData = new FormData(form);
+    formData.append('access_key', '25d920cb-1ecd-436d-9e59-c161e4baaa34');
+    formData.append('subject',    'New Enquiry — Infinity Imex');
+    formData.append('from_name',  'Infinity Imex Website');
+
+    const object = Object.fromEntries(formData);
+    const json   = JSON.stringify(object);
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/infinityimexplc@gmail.com', {
+      const res  = await fetch('https://api.web3forms.com/submit', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body:    JSON.stringify(data)
+        body:    json
       });
-      const json = await res.json();
-      if (json.success === 'true' || json.success === true) {
+      const data = await res.json();
+      if (data.success) {
         btn.style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
         form.reset();
       } else {
-        throw new Error('submission failed');
+        throw new Error(data.message || 'failed');
       }
-    } catch {
+    } catch (err) {
       btn.textContent = 'Send Enquiry';
       btn.disabled = false;
-      alert('Something went wrong. Please email us directly at infinityimexplc@gmail.com');
+      alert('Something went wrong. Please email us at infinityimexplc@gmail.com');
     }
   }
 </script>
