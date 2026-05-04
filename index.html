@@ -1061,28 +1061,37 @@
         </div>
       </div>
     </div>
-    <div class="contact-form reveal-right" id="contact-form">
+    <form class="contact-form reveal-right" id="contact-form" onsubmit="handleSubmit(event)">
+      <!-- FormSubmit hidden config -->
+      <input type="hidden" name="_subject" value="New Enquiry — Infinity Imex">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">First Name</label>
-          <input type="text" class="form-input" placeholder="Jane">
+          <input type="text" name="First Name" class="form-input" placeholder="Jane" required>
         </div>
         <div class="form-group">
           <label class="form-label">Last Name</label>
-          <input type="text" class="form-input" placeholder="Smith">
+          <input type="text" name="Last Name" class="form-input" placeholder="Smith" required>
         </div>
       </div>
       <div class="form-group">
         <label class="form-label">Email</label>
-        <input type="email" class="form-input" placeholder="jane@company.com">
+        <input type="email" name="Email" class="form-input" placeholder="jane@company.com" required>
       </div>
       <div class="form-group">
-        <label class="form-label">Company</label>
-        <input type="text" class="form-input" placeholder="Your Company">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" name="Phone Number" class="form-input" placeholder="+44 7000 000000" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your Company</label>
+        <input type="text" name="Company" class="form-input" placeholder="Company Name">
       </div>
       <div class="form-group">
         <label class="form-label">Enquiry Type</label>
-        <select class="form-input" style="appearance:none;cursor:pointer">
+        <select name="Enquiry Type" class="form-input" style="appearance:none;cursor:pointer" required>
           <option value="">Select enquiry type...</option>
           <option>Product Sourcing</option>
           <option>Private Label</option>
@@ -1091,13 +1100,9 @@
           <option>General Enquiry</option>
         </select>
       </div>
-      <div class="form-group">
-        <label class="form-label">Message</label>
-        <textarea class="form-textarea" placeholder="Tell us about your requirements..."></textarea>
-      </div>
-      <button class="form-submit" onclick="handleSubmit(event)">Send Enquiry</button>
+      <button type="submit" class="form-submit" id="submit-btn">Send Enquiry</button>
       <div class="form-success" id="form-success">✓ &nbsp;Thank you — we'll be in touch shortly.</div>
-    </div>
+    </form>
   </div>
 </section>
 
@@ -1159,16 +1164,36 @@
     }
   }
 
-  // Form submit
-  function handleSubmit(e) {
+  // Contact form — sends real email via FormSubmit (free, no account needed)
+  async function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target;
-    btn.textContent = 'Sending...';
+    const form = e.target;
+    const btn  = document.getElementById('submit-btn');
+    btn.textContent = 'Sending…';
     btn.disabled = true;
-    setTimeout(() => {
-      btn.style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
-    }, 1200);
+
+    const data = {};
+    new FormData(form).forEach((v, k) => { if (!k.startsWith('_')) data[k] = v; });
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/infinityimexplc@gmail.com', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body:    JSON.stringify(data)
+      });
+      const json = await res.json();
+      if (json.success === 'true' || json.success === true) {
+        btn.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+        form.reset();
+      } else {
+        throw new Error('submission failed');
+      }
+    } catch {
+      btn.textContent = 'Send Enquiry';
+      btn.disabled = false;
+      alert('Something went wrong. Please email us directly at infinityimexplc@gmail.com');
+    }
   }
 </script>
 
