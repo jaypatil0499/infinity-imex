@@ -302,6 +302,7 @@
     position: relative; overflow: hidden; cursor: pointer;
     aspect-ratio: 3/4;
     background: var(--cream2);
+    text-decoration: none; display: block;
   }
   .product-card img {
     width: 100%; height: 100%; object-fit: cover;
@@ -528,6 +529,80 @@
   .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: .4s; }
   .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: .5s; }
 
+  /* ─── BRAND FILMS ──────────────────────────────── */
+  #brand-films {
+    background: var(--dark);
+    padding: 120px 60px;
+    overflow: hidden;
+  }
+  .film-inner { max-width: 1400px; margin: 0 auto; }
+  .film-header { text-align: center; margin-bottom: 72px; }
+  .film-header .section-title { color: var(--cream); }
+  .film-header .section-label { color: var(--gold); }
+  .film-sub {
+    font-size: 15px; font-weight: 300; color: rgba(250,247,242,0.45);
+    max-width: 520px; margin: 20px auto 0; line-height: 1.8; letter-spacing: .3px;
+  }
+  .film-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 4px;
+    align-items: start;
+  }
+  .film-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    background: #0a0301;
+  }
+  .film-card.film-featured { aspect-ratio: 16/9; }
+  .film-card:not(.film-featured) { aspect-ratio: 9/16; }
+  .film-card video {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform .7s ease;
+  }
+  .film-card:hover video { transform: scale(1.04); }
+  .film-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,3,1,0.65) 0%, rgba(10,3,1,0.1) 60%, transparent 100%);
+    display: flex; align-items: center; justify-content: center;
+    transition: all .4s;
+  }
+  .film-card:hover .film-overlay { background: linear-gradient(to top, rgba(10,3,1,0.4) 0%, transparent 70%); }
+  .film-card.playing .film-overlay { opacity: 0; pointer-events: none; }
+  .film-card.playing:hover .film-overlay { opacity: 1; background: rgba(10,3,1,0.2); }
+  .film-play-btn {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: rgba(184,137,42,0.15);
+    border: 2px solid rgba(184,137,42,0.7);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all .3s;
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    flex-shrink: 0;
+  }
+  .film-play-btn:hover { background: var(--gold); border-color: var(--gold); }
+  .film-play-btn svg { width: 26px; height: 26px; fill: var(--gold-light); margin-left: 5px; }
+  .film-play-btn:hover svg { fill: var(--dark); }
+  .film-label {
+    position: absolute; bottom: 24px; left: 24px;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(250,247,242,0.5); font-family: var(--sans);
+  }
+  .film-badge {
+    position: absolute; top: 20px; right: 20px;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    border: 1px solid rgba(184,137,42,0.4); color: var(--gold);
+    padding: 5px 12px; backdrop-filter: blur(6px); background: rgba(10,3,1,0.3);
+  }
+
+  /* ─── FOOTER SOCIAL ────────────────────────────── */
+  .footer-social { display: flex; gap: 18px; align-items: center; }
+  .footer-social a {
+    color: rgba(250,247,242,0.35); transition: color .3s;
+    display: flex; align-items: center;
+  }
+  .footer-social a:hover { color: var(--gold); }
+  .footer-social svg { width: 18px; height: 18px; }
+
   /* ─── RESPONSIVE ─────────────────────────────────── */
   @media (max-width: 900px) {
     nav { padding: 0 24px; }
@@ -541,9 +616,13 @@
     .leather-grid { grid-template-columns: repeat(2,1fr); }
     #contact { padding: 80px 24px; }
     .contact-inner { grid-template-columns: 1fr; gap: 48px; }
-    footer { padding: 32px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; gap: 20px; }
+    .footer-social { margin-top: 4px; }
     #leather-types, #why-us { padding: 80px 24px; }
     .hero-title { font-size: 44px; }
+    #brand-films { padding: 80px 24px; }
+    .film-grid { grid-template-columns: 1fr; }
+    .film-card:not(.film-featured) { aspect-ratio: 16/9; }
   }
 </style>
 </head>
@@ -693,38 +772,38 @@
       </div>
     </div>
     <div class="product-grid stagger">
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80" alt="Leather Backpack" loading="lazy">
+      <a class="product-card" href="products.html#backpacks">
+        <img src="images/products/backpacks/1.jpg" alt="Leather Backpack" loading="lazy">
         <div class="product-card-overlay">
           <div class="product-card-num">01</div>
           <div class="product-card-name">Leather Backpack</div>
           <div class="product-card-tags">Work-ready · Daily carry</div>
         </div>
-      </div>
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&q=80" alt="Leather Tote Bag" loading="lazy">
+      </a>
+      <a class="product-card" href="products.html#carry-bags">
+        <img src="images/products/carry-bags/1.jpg" alt="Leather Tote Bag" loading="lazy">
         <div class="product-card-overlay">
           <div class="product-card-num">02</div>
           <div class="product-card-name">Leather Tote / Carry Bag</div>
           <div class="product-card-tags">Classic · Versatile</div>
         </div>
-      </div>
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80" alt="Leather Work Bag" loading="lazy">
+      </a>
+      <a class="product-card" href="products.html#work-bags">
+        <img src="images/products/work-bags/1.jpg" alt="Leather Work Bag" loading="lazy">
         <div class="product-card-overlay">
           <div class="product-card-num">03</div>
           <div class="product-card-name">Leather Work Bag</div>
           <div class="product-card-tags">Business meetings · Journeys</div>
         </div>
-      </div>
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=600&q=80" alt="Leather Briefcase" loading="lazy">
+      </a>
+      <a class="product-card" href="products.html#briefcases">
+        <img src="images/products/briefcases/6.jpg" alt="Leather Briefcase" loading="lazy">
         <div class="product-card-overlay">
           <div class="product-card-num">04</div>
           <div class="product-card-name">Leather Briefcase</div>
           <div class="product-card-tags">Executive · Timeless</div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 
@@ -738,38 +817,76 @@
       </div>
     </div>
     <div class="product-grid stagger">
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&q=80" alt="Wallets" loading="lazy">
+      <a class="product-card" href="products.html#wallets">
+        <img src="images/products/wallets/1.jpg" alt="Wallets" loading="lazy">
         <div class="product-card-overlay">
           <div class="product-card-num">01</div>
           <div class="product-card-name">Wallets</div>
           <div class="product-card-tags">Hunter · Oil Pull-Up · Croco</div>
         </div>
-      </div>
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&q=80" alt="Document Folder & Notebooks" loading="lazy">
+      </a>
+      <a class="product-card" href="products.html#document-folders">
+        <img src="images/products/document-folders/1.jpg" alt="Document Folder & Notebooks" loading="lazy">
         <div class="product-card-overlay">
           <div class="product-card-num">02</div>
           <div class="product-card-name">Document Folders &amp; Notebooks</div>
           <div class="product-card-tags">Professional · Personalised</div>
         </div>
-      </div>
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1601999109332-542b18dbec57?w=600&q=80" alt="Key Rings" loading="lazy">
+      </a>
+      <a class="product-card" href="products.html#keyrings">
+        <img src="images/products/keyrings/1.jpg" alt="Key Rings" loading="lazy">
         <div class="product-card-overlay">
           <div class="product-card-num">03</div>
           <div class="product-card-name">Key Rings</div>
           <div class="product-card-tags">Bespoke · Engraved</div>
         </div>
-      </div>
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80" alt="Hand-held Purses" loading="lazy">
+      </a>
+      <a class="product-card" href="products.html#purses">
+        <img src="images/products/purses/1.jpg" alt="Hand-held Purses" loading="lazy">
         <div class="product-card-overlay">
           <div class="product-card-num">04</div>
           <div class="product-card-name">Hand-held Purses</div>
           <div class="product-card-tags">Goat Kappa · Fine Milled Nappa</div>
         </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BRAND FILMS ─── -->
+<section id="brand-films">
+  <div class="film-inner">
+    <div class="film-header reveal">
+      <span class="section-label">In The Making</span>
+      <h2 class="section-title">The Craft in Motion</h2>
+      <div class="divider centered" style="background:var(--gold);"></div>
+      <p class="film-sub">A glimpse into the hands, the leather, and the dedication behind every Infinity Imex piece.</p>
+    </div>
+    <div class="film-grid">
+
+      <!-- Video 1 — Featured -->
+      <div class="film-card film-featured reveal-left" id="film-1">
+        <video src="videos/brand-film-1.mp4" muted playsinline loop preload="metadata" id="vid-1"></video>
+        <div class="film-overlay">
+          <button class="film-play-btn" onclick="toggleFilm('vid-1','film-1')" aria-label="Play">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+        </div>
+        <span class="film-label">Brand Film</span>
+        <span class="film-badge">Infinity Imex</span>
       </div>
+
+      <!-- Video 2 -->
+      <div class="film-card reveal-right" id="film-2">
+        <video src="videos/brand-film-2.mp4" muted playsinline loop preload="metadata" id="vid-2"></video>
+        <div class="film-overlay">
+          <button class="film-play-btn" onclick="toggleFilm('vid-2','film-2')" aria-label="Play">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+        </div>
+        <span class="film-label">Behind the Craft</span>
+      </div>
+
     </div>
   </div>
 </section>
@@ -993,6 +1110,17 @@
     <a href="#why-us">Why Us</a>
     <a href="#contact">Contact</a>
   </div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/infinityimex?igsh=cGQ3am4weDR1bXBm" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/company/infinityimex-ltd/" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a href="https://www.facebook.com/share/18NioujhFT/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+  </div>
 </footer>
 
 <script>
@@ -1013,6 +1141,23 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
   document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach(el => observer.observe(el));
+
+  // Brand film play/pause toggle
+  function toggleFilm(vidId, cardId) {
+    const vid = document.getElementById(vidId);
+    const card = document.getElementById(cardId);
+    if (vid.paused) {
+      vid.muted = false;
+      vid.loop = false;
+      vid.play();
+      card.classList.add('playing');
+    } else {
+      vid.pause();
+      vid.muted = true;
+      vid.loop = true;
+      card.classList.remove('playing');
+    }
+  }
 
   // Form submit
   function handleSubmit(e) {

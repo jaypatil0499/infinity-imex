@@ -153,6 +153,10 @@
   .footer-links { display: flex; gap: 32px; }
   .footer-links a { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; color: rgba(250,247,242,0.35); transition: color .3s; }
   .footer-links a:hover { color: var(--gold); }
+  .footer-social { display: flex; gap: 18px; align-items: center; }
+  .footer-social a { color: rgba(250,247,242,0.35); transition: color .3s; display: flex; align-items: center; }
+  .footer-social a:hover { color: var(--gold); }
+  .footer-social svg { width: 18px; height: 18px; }
 
   /* ── REVEAL ANIMATIONS ── */
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
@@ -179,7 +183,7 @@
     .cat-num { font-size: 60px; }
     .product-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
     .product-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
-    footer { padding: 32px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; gap: 20px; }
     .cat-cta { flex-direction: column; align-items: flex-start; }
   }
 </style>
@@ -522,6 +526,17 @@
     <a href="products.html">Products</a>
     <a href="index.html#why-us">Why Us</a>
     <a href="index.html#contact">Contact</a>
+  </div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/infinityimex?igsh=cGQ3am4weDR1bXBm" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/company/infinityimex-ltd/" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a href="https://www.facebook.com/share/18NioujhFT/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
   </div>
 </footer>
 
